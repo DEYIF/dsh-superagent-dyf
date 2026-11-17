@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest'
 import { z } from 'zod'
 import { registerHttp } from '../src/app/http.ts'
+import type { Trigger } from '../src/core/index.ts'
 import { PromptConflict } from '../src/app/prompts.ts'
 import { SettingsConflict } from '../src/app/settings.ts'
 import type { HttpHost } from '../src/app/http.ts'
@@ -95,4 +96,22 @@ it('answers a prompt save that lost a race with 409, and a settings body over 12
   expect(await call('PUT', 'settings/executor', { value, revision: 0 })).toEqual({ status: 400,
     body: { error: `Request exceeds ${128 * 1024} bytes` } })
   expect(saves).toEqual([])
+})
+
+it('turns a device\'s spoken request into one Trigger for the Engine', async () => {
+  const received: Trigger[] = []
+  const call = serve({ engine: { receive: (trigger: Trigger) => { received.push(trigger); return 'stored' } } })
+  const response = await call('POST', 'device/ask', { text: '把 README 的 typo 改掉', deviceId: 'esp32-01' })
+  expect(response.status).toBe(200)
+  expect(response.body).toEqual({ result: 'stored', triggerId: expect.any(String) })
+  expect(received).toHaveLength(1)
+  expect(received[0]).toMatchObject({ source: 'voice', human: true, addressed: 'direct', text: '把 README 的 typo 改掉',
+    threads: [{ source: 'voice', id: 'esp32-01' }], actor: { source: 'voice', id: 'owner' }, meta: { deviceId: 'esp32-01' } })
+  // A device may name its sender; the Policy still decides whether that sender may originate work.
+  expect(await call('POST', 'device/ask', { text: '改个 typo', sender: 'someone' })).toMatchObject({ status: 200 })
+  expect(received[1]?.actor).toEqual({ source: 'voice', id: 'someone' })
+  // An empty request is malformed, and an unknown field is refused rather than dropped.
+  expect(await call('POST', 'device/ask', { text: '   ' })).toMatchObject({ status: 400 })
+  expect(await call('POST', 'device/ask', { text: 'x', extra: true })).toMatchObject({ status: 400 })
+  expect(received).toHaveLength(2)
 })

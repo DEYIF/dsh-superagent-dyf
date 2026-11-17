@@ -1,0 +1,4 @@
+mcp>=1.9,<2
+requests>=2.31
+websockets>=12
+python-dotenv>=1.0

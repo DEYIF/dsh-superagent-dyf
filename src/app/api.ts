@@ -34,6 +34,8 @@ export interface Api {
   'GET tickets/:id': { response: TicketPageView }
   'POST tickets/:id/retry': { response: { retried: true } }
   'POST tickets/:id/stop': { response: { stopped: true } }
+  /** A device reports one spoken request as one Trigger; the main Session decides whether it becomes a Ticket. */
+  'POST device/ask': { body: { text: string; deviceId?: string; sender?: string }; response: { result: string; triggerId: string } }
   'POST executor/pause': { body: { paused: boolean }; response: { paused: boolean } }
   'PUT settings/:block': { body: { value: unknown; revision: number }; response: { revision: number; restarting: boolean } }
   'GET policy/history': { response: HistoryView }

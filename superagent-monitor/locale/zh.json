@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Superagent 监控",
+    "description": "监视独立运行的 dsh-superagent：运行状态、健康分项、负载、消息来源与监听的仓库；可一键启动/重启并修改监听的 GitHub 仓库。"
+  }
+}

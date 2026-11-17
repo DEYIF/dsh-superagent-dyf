@@ -30,6 +30,10 @@ Read the numbered documents in order; each builds only on the ones before it.
 - [007 Architecture](docs/007-architecture.md)
 - [008 Cookbook](docs/008-cookbook.md): adding a Source
 
+## Monitoring
+
+[`superagent-monitor/`](superagent-monitor/README.md) is a companion bundle for the profile you work in. It watches a running dsh-superagent instance, starts or restarts it through `scripts/dsh-superagent`, changes the GitHub repository it watches, and can run a main-process watchdog that probes the management API and restarts the process after consecutive failures. Install it from that directory; it deliberately does not load in the `superagent` profile, so it keeps answering while the agent is down.
+
 ## Development
 
 `pnpm check` runs the typecheck, the tests and the build.

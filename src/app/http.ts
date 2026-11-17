@@ -11,7 +11,7 @@ import { PromptConflict, SKILL_NAME, SKILL_PREFIX, TEAM_SECTIONS, builtInBase, b
 import { policyVersion } from '../policy.ts'
 import { SettingsConflict, type Settings } from './settings.ts'
 import { SetupError, type SetupProblem } from '../setup.ts'
-import { UserError, type EngineForPeople, type Ticket } from '../core/index.ts'
+import { UserError, key, type EngineForPeople, type Ticket, type Trigger } from '../core/index.ts'
 import type { Deployment, Machine } from '../deployment.ts'
 import type { DshExecutor } from '../executor/dsh.ts'
 import type { Health } from '../sources/host.ts'
@@ -36,7 +36,8 @@ export interface HttpHost {
   readonly prompts: Pick<Prompts, 'current' | 'version' | 'history' | 'preview' | 'save' | 'defaultChanged'>
   readonly sessions: Pick<Sessions, 'status' | 'notify' | 'delivery'>
   readonly settings: Pick<Settings, 'view' | 'save' | 'pause' | 'sync' | 'refreshLabels'>
-  readonly engine: EngineForPeople
+  /** `receive` serves `POST device/ask`: a device's spoken request enters the domain as one Trigger. */
+  readonly engine: EngineForPeople & { receive(trigger: Trigger): string }
   readonly executor: Pick<DshExecutor, 'activeCount'>
   readonly health: Record<string, Health>
   readonly machine: Machine
@@ -192,6 +193,17 @@ function routes(runtime: HttpHost): Routes {
     'GET tickets/:id': ({ params }) => ticketPage(runtime, params.id),
     'POST tickets/:id/retry': ({ params }) => { const id = ticket(params.id); runtime.engine.retryTicket(id); return { retried: true } },
     'POST tickets/:id/stop': ({ params }) => { const id = ticket(params.id); runtime.engine.stopTicket(id); return { stopped: true } },
+    'POST device/ask': async ({ body }) => {
+      const input = z.object({ text: z.string().trim().min(1).max(4000), deviceId: z.string().trim().min(1).max(64).default('device'),
+        sender: z.string().trim().min(1).max(200).default('owner') }).strict().parse(await body())
+      const at = new Date().toISOString()
+      // One device is one Thread, so a later message on it correlates with the Tickets it opened. `addressed: 'direct'` is what
+      // admits it at explicit strength: without a mention the Policy sees a person who did not address the agent and drops it.
+      const trigger: Trigger = { id: key('trigger', 'voice', input.deviceId, at, input.text), source: 'voice',
+        threads: [{ source: 'voice', id: input.deviceId }], actor: { source: 'voice', id: input.sender }, human: true,
+        addressed: 'direct', at, text: input.text, meta: { deviceId: input.deviceId } }
+      return { result: runtime.engine.receive(trigger), triggerId: trigger.id }
+    },
     'POST executor/pause': async ({ body }) => runtime.settings.pause(z.object({ paused: z.boolean() }).parse(await body()).paused, 'panel'),
     'PUT settings/:block': async ({ params, body }) => {
       const block = SettingsBlockSchema.parse(params.block)

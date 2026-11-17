@@ -1,0 +1,6 @@
+# Insert the monitor into the profile you work in (for example the desktop profile),
+# not into the `superagent` profile: it must keep answering while the agent is down.
+# Machine-specific values are optional; see README.md for the keys.
+- insert:
+    - id: superagent-monitor
+      name: '@local/superagent-monitor'

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Superagent Monitor",
+    "description": "Watch the standalone dsh-superagent service: runtime, health parts, load, sources and the watched repository; start or restart it and change the GitHub repository it watches."
+  }
+}

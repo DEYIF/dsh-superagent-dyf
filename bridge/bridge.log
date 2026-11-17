@@ -1,0 +1,81 @@
+[14:31:35] 接入点 wss://api.xiaozhi.me/mcp/?token=***
+[14:31:35] superagent http://127.0.0.1:3082/orchestrator/api
+[14:31:35] 接入点已连接，启动 MCP server
+[14:31:35] ← initialize
+[14:31:36] watcher 启动，每 20s 查一次
+[14:31:36] MCP server 就绪：source=voice device=esp32-01 api=http://127.0.0.1:3082/orchestrator/api
+[14:31:36] ← notifications/initialized
+[14:31:36] ← tools/list
+Processing request of type ListToolsRequest
+[14:31:50] ← ping
+Processing request of type PingRequest
+[14:32:22] 接入点 wss://api.xiaozhi.me/mcp/?token=***
+[14:32:22] superagent http://127.0.0.1:3082/orchestrator/api
+[14:32:22] 接入点已连接，启动 MCP server
+[14:32:22] ← initialize
+[14:32:23] watcher 启动，每 20s 查一次[14:32:23] MCP server 就绪：source=voice device=esp32-01 api=http://127.0.0.1:3082/orchestrator/api
+
+[14:32:23] ← notifications/initialized
+[14:32:23] ← tools/list
+Processing request of type ListToolsRequest
+[14:32:50] ← ping
+Processing request of type PingRequest
+[14:33:50] ← ping
+Processing request of type PingRequest
+[14:34:50] ← ping
+Processing request of type PingRequest
+[14:35:50] ← ping
+Processing request of type PingRequest
+[14:36:05] ← tools/call ask_superagent
+Processing request of type CallToolRequest
+[14:36:50] ← ping
+Processing request of type PingRequest
+[14:37:23] 排入播报：PR 提交了：给 GitHub 仓库 README 添加英文版，https://github.com/DEYIF/superagent-playground/pull/3
+[14:37:43] 排入播报：给 GitHub 仓库 README 添加英文版 改完了，PR 等你 review
+[14:37:50] ← ping
+Processing request of type PingRequest
+[14:38:50] ← ping
+Processing request of type PingRequest
+[14:39:50] ← ping
+Processing request of type PingRequest
+[14:40:50] ← ping
+Processing request of type PingRequest
+[14:41:50] ← ping
+Processing request of type PingRequest
+[14:42:50] ← ping
+Processing request of type PingRequest
+[14:43:50] ← ping
+Processing request of type PingRequest
+[14:44:50] ← ping
+Processing request of type PingRequest
+[14:45:50] ← ping
+Processing request of type PingRequest
+[14:46:50] ← ping
+Processing request of type PingRequest
+[14:47:50] ← ping
+Processing request of type PingRequest
+[14:48:43] 排入播报：给 GitHub 仓库 README 添加英文版 已经结束（merged）
+[14:48:50] ← ping
+Processing request of type PingRequest
+[14:49:50] ← ping
+Processing request of type PingRequest
+[14:50:50] ← ping
+Processing request of type PingRequest
+[14:51:50] ← ping
+Processing request of type PingRequest
+[14:52:50] ← ping
+Processing request of type PingRequest
+[14:53:50] ← ping
+Processing request of type PingRequest
+[14:54:50] ← ping
+Processing request of type PingRequest
+[14:55:50] ← ping
+Processing request of type PingRequest
+[14:56:50] ← ping
+Processing request of type PingRequest
+[14:57:50] ← ping
+Processing request of type PingRequest
+[14:58:50] ← ping
+Processing request of type PingRequest
+[14:59:50] ← ping
+Processing request of type PingRequest

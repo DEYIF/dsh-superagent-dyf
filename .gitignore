@@ -3,3 +3,9 @@ lib/
 .artifacts/
 .env
 coverage/
+__pycache__/
+*.pyc
+*.ppt
+*.pptx
+build_logic_slide.py
+# bridge/state.json

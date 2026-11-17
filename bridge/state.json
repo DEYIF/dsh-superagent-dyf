@@ -1,0 +1,33 @@
+{
+  "news": [
+    {
+      "at": "2026-11-05T06:37:06.945Z",
+      "ticket": "d51d3064085b37e4e5035f65f8433d10",
+      "title": "给 GitHub 仓库 README 添加英文版",
+      "url": "https://github.com/DEYIF/superagent-playground/pull/3",
+      "text": "PR 提交了：给 GitHub 仓库 README 添加英文版，https://github.com/DEYIF/superagent-playground/pull/3"
+    },
+    {
+      "at": "2026-11-05T06:37:34.134Z",
+      "ticket": "d51d3064085b37e4e5035f65f8433d10",
+      "title": "给 GitHub 仓库 README 添加英文版",
+      "url": "https://github.com/DEYIF/superagent-playground/pull/3",
+      "text": "给 GitHub 仓库 README 添加英文版 改完了，PR 等你 review"
+    },
+    {
+      "at": "2026-11-05T06:48:23.764Z",
+      "ticket": "d51d3064085b37e4e5035f65f8433d10",
+      "title": "给 GitHub 仓库 README 添加英文版",
+      "url": "https://github.com/DEYIF/superagent-playground/pull/3",
+      "text": "给 GitHub 仓库 README 添加英文版 已经结束（merged）"
+    }
+  ],
+  "seen": {
+    "d51d3064085b37e4e5035f65f8433d10": {
+      "state": "ended",
+      "stage": "ended",
+      "action": null,
+      "url": "https://github.com/DEYIF/superagent-playground/pull/3"
+    }
+  }
+}
