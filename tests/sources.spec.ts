@@ -1023,8 +1023,15 @@ it('reports GitHub as failing only after the configured number of consecutive fa
   expect(pollFailure(1, 3, eof)).toBeUndefined()
   expect(pollFailure(2, 3, eof)).toBeUndefined()
   expect(pollFailure(3, 3, eof)).toEqual({ state: 'error', detail: '3 consecutive failed polls; last: Error: Get "https://api.github.com/x": EOF', code: 'pollFailures', values: { count: '3', error: 'Error: Get "https://api.github.com/x": EOF' } })
-  expect(githubKind.schema.parse({})).toEqual({ repository: '', cli: '', pollSeconds: 60, failuresBeforeError: 3, observeIssues: false,
+  expect(githubKind.schema.parse({})).toEqual({ repository: '', clone: '', cli: '', pollSeconds: 60, failuresBeforeError: 3, observeIssues: false,
     observePulls: false, observeComments: false, observeCi: false })
+})
+it('takes the local clone path from the GitHub configuration into the execution environment', () => {
+  const config = githubKind.schema.parse({ clone: '/home/me/src/widgets' })
+  expect(config.clone).toBe('/home/me/src/widgets')
+  expect(() => githubKind.schema.parse({ clone: 'src/widgets' })).toThrow('Use an absolute path')
+  expect(githubKind.environment!.values({ deployment: testDeployment(), config })).toMatchObject({ DSH_SUPERAGENT_GITHUB_REPOSITORY: 'acme/widgets',
+    DSH_SUPERAGENT_GITHUB_CLONE: '/home/me/src/widgets' })
 })
 describe('feishu event consumer', () => {
   let dir: string
